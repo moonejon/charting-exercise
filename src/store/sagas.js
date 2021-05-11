@@ -31,8 +31,7 @@ function* fetchStandings() {
   console.log("HELLO");
   try {
     const result = yield(mlbStats.getStandings({params: {leagueId: "103, 104", season: 2021}}))
-    console.log(result);
-    yield put(standingsReceived(result));
+    yield put(standingsReceived(result.data.records));
   } catch (err) {
     yield call(standingsError(err.message));
     console.log(err.message);

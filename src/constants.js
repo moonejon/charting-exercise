@@ -7,15 +7,15 @@ export const TEAM_IDS = {
 };
 
 export const LEAGUE_IDS = {
-    AL: 103,
-    NL: 104
+  103: 'American League',
+  104: 'National League'
 }
 
 export const DIVISION_IDS = {
-    ALW: 200,
-    ALE: 201,
-    ALC: 202,
-    NLW: 203,
-    NLE: 204,
-    NLC: 205
+    200: 'AL West',
+    201: 'AL East',
+    202: 'AL Central',
+    203: 'NL West',
+    204: 'NL East',
+    205: 'NL Central'
 }
