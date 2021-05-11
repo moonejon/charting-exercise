@@ -1,4 +1,4 @@
-import { call, put, takeLatest, all } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 const MLBStatsAPI = require("mlb-stats-api");
 const mlbStats = new MLBStatsAPI();
 

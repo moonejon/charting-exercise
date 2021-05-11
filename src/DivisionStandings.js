@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { VictoryBar, VictoryChart, VictoryTooltip } from "victory";
 import {TEAM_PRIMARY_COLOR} from './constants';
 

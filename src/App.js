@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useStore, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LEAGUE_IDS, DIVISION_IDS, TEAM_ABBREV } from "./constants";
 import { getStandings } from "./store/sagas";
 import "./App.scss";
