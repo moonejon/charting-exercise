@@ -1,18 +1,14 @@
 import logo from './logo.svg';
 import React, {useEffect} from 'react';
+import { useDispatch } from 'react-redux'
+import {getStandings} from './store/sagas'
 import './App.css';
-import {fetchStandingsSaga} from './store/reducer'
-
-const MLBStatsAPI = require('mlb-stats-api');
-const mlbStats = new MLBStatsAPI();
 
 function App() {
-
+  const dispatch = useDispatch();
   useEffect(() => {
-
-    return fetchStandingsSaga();
-
-  });
+    dispatch(getStandings());
+  }, []);
 
   return (
     <div className="App">
