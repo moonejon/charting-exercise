@@ -1,9 +1,9 @@
-import logo from './logo.svg';
-import React, {useEffect, useState} from 'react';
-import { useDispatch, useStore, useSelector } from 'react-redux'
-import {LEAGUE_IDS, DIVISION_IDS, TEAM_IDS } from './constants'
-import {getStandings} from './store/sagas'
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useStore, useSelector } from "react-redux";
+import { LEAGUE_IDS, DIVISION_IDS, TEAM_ABBREV } from "./constants";
+import { getStandings } from "./store/sagas";
+import "./App.scss";
+import DivisionStandings from "./DivisionStandings";
 
 function App() {
   const dispatch = useDispatch();
@@ -14,31 +14,41 @@ function App() {
     dispatch(getStandings());
   }, [dispatch]);
 
-  const standingsData = useSelector(state => state.data);
+  const standingsData = useSelector((state) => state.data);
 
   useEffect(() => {
-  const refinedStandingsData = standingsData.map(x => {
-    return {
-      league: LEAGUE_IDS[x.league.id],
-      division: DIVISION_IDS[x.division.id],
-      teams: x.teamRecords.map(y => {
-        return {
-          name: y.team.name,
-          wins: y.wins
-        }
-      })
-    }
-  } )
+    const refinedStandingsData = standingsData.map((x) => {
+      return {
+        name: DIVISION_IDS[x.division.id],
+        league: LEAGUE_IDS[x.league.id],
+        teams: x.teamRecords.map((y) => {
+          return {
+            name: TEAM_ABBREV[y.team.name],
+            wins: y.wins,
+          };
+        }),
+      };
+    });
 
-  setStatisticsByDivision(refinedStandingsData);
-}, [standingsData]);
-
-
-
+    setStatisticsByDivision(refinedStandingsData);
+  }, [standingsData]);
 
   return (
     <div className="App">
-
+      <div class="league-container">
+        {statisticsByDivision
+          ?.filter((division) => division.league === "American League")
+          .map((division) => (
+            <DivisionStandings division={division} />
+          ))}
+      </div>
+      <div class="league-container">
+      {statisticsByDivision
+          ?.filter((division) => division.league === "National League")
+          .map((division) => (
+            <DivisionStandings division={division} />
+          ))}
+      </div>
     </div>
   );
 }

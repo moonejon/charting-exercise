@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+}
+
+.league-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 7em;
+}
