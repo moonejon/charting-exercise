@@ -36,7 +36,10 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={() => chartType === 'bar' ? setChartType('pie') : setChartType('bar')}>Change Display Type</button>
+      <div id="header">
+        <div id="title">2021 MLB Win Totals</div>
+        <button onClick={() => chartType === 'bar' ? setChartType('pie') : setChartType('bar')}>Change Display Type</button>
+      </div>
       <div class="league-container">
         {statisticsByDivision
           ?.filter((division) => division.league === "American League")

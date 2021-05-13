@@ -1,23 +1,18 @@
 import React from "react";
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryPie, VictoryTooltip } from "victory";
+import { VictoryBar, VictoryChart, VictoryLabel, VictoryPie, VictoryTooltip } from "victory";
 import { TEAM_PRIMARY_COLOR } from "./constants";
 
 const BarChart = (stats) => {
-  console.log(stats.stats.teams);
-
-  const sharedAxisStyles = {
-    tickLabels: {
-      fontSize: 13
-    },
-    axisLabel: {
-      padding: 39,
-      fontSize: 13,
-      fontStyle: "italic"
-    }
-  };
 
   return (
     <VictoryChart domainPadding={{ x: 30 }}>
+        <VictoryLabel
+            text={`${stats.stats.name}`}
+            x={225}
+            y={18}
+            textAnchor="middle"
+            style={{ fontSize: 22 }}
+          />
       <VictoryBar
         style={{
           data: {
@@ -32,44 +27,52 @@ const BarChart = (stats) => {
         x="name"
         y="wins"
       />
-      <VictoryAxis
-        dependentAxis
-        label="Total # of Wins"
-        style={sharedAxisStyles}
-      />
     </VictoryChart>
   );
 };
 
 const PieChart = (stats) => {
   return (
+    <svg viewBox="0 0 400 400">
       <VictoryPie
         style={{
           data: {
             fill: ({ datum }) => TEAM_PRIMARY_COLOR[datum.name],
-          }
+          },
+          labels: { fill: "white" }
         }}
+        standalone={false}
         data={stats.stats.teams}
         labels={({ datum }) => `${datum.name}: ${datum.wins}`}
+        innerRadius={50} labelRadius={85}
         x="name"
         y="wins"
-        width={500}
+        width={400}
+        height={400}
       ></VictoryPie>
+      <VictoryLabel
+          textAnchor="middle"
+          style={{ fontSize: 20 }}
+          x={200} y={200}
+          text={`${stats.stats.name}`}
+        />
+      </svg>
   );
 };
 
 export default function DivisionStandings(props) {
     const {division, chartType} = props;
-    console.log(division, chartType);
 
   return (
     <div id="standings">
+    <div id="division-container" className="shadow">
     {chartType === 'bar' ? (
       <BarChart stats={division} />
     ) : (
       <PieChart stats={division} />
     )
     }
+    </div>
     </div>
   );
 }
