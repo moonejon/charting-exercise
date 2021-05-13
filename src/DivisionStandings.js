@@ -19,6 +19,27 @@ const BarChart = (stats) => {
             fill: ({ datum }) => TEAM_PRIMARY_COLOR[datum.name],
           },
         }}
+        animate={{
+            onLoad: { duration: 1000 }
+          }}
+          events={[
+            {
+              target: "data",
+              eventHandlers: {
+                onClick: () => {
+                    return [
+                      {
+                        target: "data",
+                        mutation: (props) => {
+                          const fill = props.style && props.style.fill;
+                          return fill === "black" ? null : { style: { fill: "black" } };
+                        }
+                      }
+                    ];
+                }
+              }
+            }
+          ]}
         labels={({ datum }) => `wins: ${datum.wins}`}
         labelComponent={
           <VictoryTooltip flyoutHeight={30} constrainToVisibleArea />
