@@ -9,6 +9,7 @@ function App() {
   const dispatch = useDispatch();
 
   const [statisticsByDivision, setStatisticsByDivision] = useState();
+  const [chartType, setChartType] = useState('bar');
 
   useEffect(() => {
     dispatch(getStandings());
@@ -35,18 +36,19 @@ function App() {
 
   return (
     <div className="App">
+      <button onClick={() => chartType === 'bar' ? setChartType('pie') : setChartType('bar')}>Change Display Type</button>
       <div class="league-container">
         {statisticsByDivision
           ?.filter((division) => division.league === "American League")
           .map((division) => (
-            <DivisionStandings division={division} />
+            <DivisionStandings division={division} chartType={chartType}/>
           ))}
       </div>
       <div class="league-container">
       {statisticsByDivision
           ?.filter((division) => division.league === "National League")
           .map((division) => (
-            <DivisionStandings division={division} />
+            <DivisionStandings division={division} chartType={chartType}/>
           ))}
       </div>
     </div>

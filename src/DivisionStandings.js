@@ -1,22 +1,75 @@
 import React from "react";
-import { VictoryBar, VictoryChart, VictoryTooltip } from "victory";
-import {TEAM_PRIMARY_COLOR} from './constants';
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryPie, VictoryTooltip } from "victory";
+import { TEAM_PRIMARY_COLOR } from "./constants";
 
 const BarChart = (stats) => {
-  console.log(stats.stats.division.teams);
+  console.log(stats.stats.teams);
+
+  const sharedAxisStyles = {
+    tickLabels: {
+      fontSize: 13
+    },
+    axisLabel: {
+      padding: 39,
+      fontSize: 13,
+      fontStyle: "italic"
+    }
+  };
+
   return (
     <VictoryChart domainPadding={{ x: 30 }}>
-      <VictoryBar style={{
+      <VictoryBar
+        style={{
           data: {
-            fill: ({ datum }) => datum.name === 'HOU' || 'OAK' || 'SEA' || 'LAA' || 'TEX' ? TEAM_PRIMARY_COLOR[datum.name] : "#00000"
-          }  }}
-          labels={({ datum }) => `wins: ${datum.wins}`}
-          labelComponent={<VictoryTooltip   flyoutHeight={30} constrainToVisibleArea/>}
-            data={stats.stats.division.teams}  x="name" y="wins" />
+            fill: ({ datum }) => TEAM_PRIMARY_COLOR[datum.name],
+          },
+        }}
+        labels={({ datum }) => `wins: ${datum.wins}`}
+        labelComponent={
+          <VictoryTooltip flyoutHeight={30} constrainToVisibleArea />
+        }
+        data={stats.stats.teams}
+        x="name"
+        y="wins"
+      />
+      <VictoryAxis
+        dependentAxis
+        label="Total # of Wins"
+        style={sharedAxisStyles}
+      />
     </VictoryChart>
   );
 };
 
-export default function DivisionStandings(stats) {
-  return <BarChart stats={stats} />;
+const PieChart = (stats) => {
+  return (
+      <VictoryPie
+        style={{
+          data: {
+            fill: ({ datum }) => TEAM_PRIMARY_COLOR[datum.name],
+          }
+        }}
+        data={stats.stats.teams}
+        labels={({ datum }) => `${datum.name}: ${datum.wins}`}
+        x="name"
+        y="wins"
+        width={500}
+      ></VictoryPie>
+  );
+};
+
+export default function DivisionStandings(props) {
+    const {division, chartType} = props;
+    console.log(division, chartType);
+
+  return (
+    <div id="standings">
+    {chartType === 'bar' ? (
+      <BarChart stats={division} />
+    ) : (
+      <PieChart stats={division} />
+    )
+    }
+    </div>
+  );
 }
