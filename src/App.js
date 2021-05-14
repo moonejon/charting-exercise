@@ -40,18 +40,18 @@ function App() {
         <div id="title">2021 MLB Win Totals</div>
         <button onClick={() => chartType === 'bar' ? setChartType('pie') : setChartType('bar')}>Change Display Type</button>
       </div>
-      <div class="league-container">
+      <div className="league-container">
         {statisticsByDivision
           ?.filter((division) => division.league === "American League")
           .map((division) => (
-            <DivisionStandings division={division} chartType={chartType}/>
+            <DivisionStandings key={division.name} division={division} chartType={chartType}/>
           ))}
       </div>
-      <div class="league-container">
+      <div className="league-container">
       {statisticsByDivision
           ?.filter((division) => division.league === "National League")
           .map((division) => (
-            <DivisionStandings division={division} chartType={chartType}/>
+            <DivisionStandings key={division.name} division={division} chartType={chartType}/>
           ))}
       </div>
     </div>
