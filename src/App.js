@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LEAGUE_IDS, DIVISION_IDS, TEAM_ABBREV } from "./constants";
-import { getStandings } from "./store/sagas";
+import { getStandings } from "./store/actions";
 import "./App.scss";
 import DivisionStandings from "./DivisionStandings";
 
