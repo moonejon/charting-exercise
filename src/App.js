@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="App">
       <div id="header">
-        <div id="title">2021 MLB Win Totals</div>
+        <div id="title">2022 MLB Win Totals</div>
         <button onClick={() => chartType === 'bar' ? setChartType('pie') : setChartType('bar')}>Change Display Type</button>
       </div>
       <div className="league-container">
